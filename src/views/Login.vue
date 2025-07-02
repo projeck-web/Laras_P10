@@ -70,7 +70,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/Pinia'
 import '../style/Login.css';
-import { login } from '../java/Login';
 
 const router = useRouter()
 const userStore = useUserStore()

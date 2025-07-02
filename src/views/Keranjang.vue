@@ -50,12 +50,20 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import '../style/Keranjang.css'
-import { Keranjang } from '../java/Keranjang';
 
 // State
 const cartItems = ref([])
 const loading = ref(true)
 const error = ref(null)
+
+// Deteksi apakah sedang development (lokal)
+const isDev = import.meta.env.DEV
+
+// Endpoint JSON Server dinamis
+const API_KERANJANG_URL = isDev
+  ? 'http://localhost:3000/keranjang'
+  : 'https://tourmaline-spangled-country.glitch.me/keranjang'
+
 
 // Hitung total harga
 const totalCartPrice = computed(() =>
