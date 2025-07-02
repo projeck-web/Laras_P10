@@ -87,10 +87,13 @@ const fetchCartItems = async () => {
 // Update kuantitas item
 const updateQuantity = async (id, newQuantity) => {
   if (newQuantity < 1) return
-  if (!isDev) {
-    alert('❗ Edit keranjang hanya bisa dilakukan saat menjalankan server lokal.')
-    return
-  }
+
+  // --- HAPUS ATAU KOMENTARI BLOK INI ---
+  // if (!isDev) {
+  //   alert('❗ Edit keranjang hanya bisa dilakukan saat menjalankan server lokal.')
+  //   return
+  // }
+  // ------------------------------------
 
   const itemIndex = cartItems.value.findIndex(item => item.id === id)
   if (itemIndex === -1) return
@@ -109,10 +112,12 @@ const updateQuantity = async (id, newQuantity) => {
 
 // Hapus item dari keranjang
 const deleteItem = async (id) => {
-  if (!isDev) {
-    alert('❗ Penghapusan hanya tersedia saat menggunakan server lokal.')
-    return
-  }
+  // --- HAPUS ATAU KOMENTARI BLOK INI ---
+  // if (!isDev) {
+  //   alert('❗ Penghapusan hanya tersedia saat menggunakan server lokal.')
+  //   return
+  // }
+  // ------------------------------------
 
   const confirmed = confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')
   if (!confirmed) return
