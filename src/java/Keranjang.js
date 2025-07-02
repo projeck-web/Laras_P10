@@ -1,6 +1,5 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
-import '../style/Keranjang.css'
 
 // State
 const cartItems = ref([])

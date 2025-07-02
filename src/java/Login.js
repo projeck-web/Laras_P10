@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/Pinia'
-import '../style/Login.css';
 
 const router = useRouter()
 const userStore = useUserStore()

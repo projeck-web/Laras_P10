@@ -177,7 +177,6 @@ h2::after {
   margin-bottom: 10px;
   min-height: 2.6em; /* To ensure consistent height for titles */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -191,7 +190,6 @@ h2::after {
   flex-grow: 1;
   min-height: 3.6em; /* To ensure consistent height for descriptions */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

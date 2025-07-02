@@ -1,6 +1,6 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import '../style/Barang.css'
+
 
 const produkList = ref([])
 
