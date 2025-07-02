@@ -102,11 +102,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import '../style/Barang.css';
+import '../style/Barang.css'
 
 const produkList = ref([])
-const API_BARANG_URL = 'http://localhost:3000/barang';
-const API_KERANJANG_URL = 'http://localhost:3000/keranjang';
+
+// Gunakan server lokal saat development, server online saat production (read-only)
+const isDev = import.meta.env.DEV
+
+const API_BARANG_URL = isDev
+  ? 'http://localhost:3000/barang'
+  : 'https://tourmaline-spangled-country.glitch.me/barang'
+
+const API_KERANJANG_URL = isDev
+  ? 'http://localhost:3000/keranjang'
+  : 'https://tourmaline-spangled-country.glitch.me/keranjang'
 
 onMounted(async () => {
   try {
@@ -114,59 +123,50 @@ onMounted(async () => {
     produkList.value = res.data
   } catch (err) {
     console.error('Gagal memuat produk:', err)
+    alert('❌ Gagal mengambil data produk.')
   }
 })
 
 // Fungsi untuk menambahkan produk ke keranjang
 const addToCart = async (product) => {
-  // Validasi sederhana jika objek produk tidak lengkap
   if (!product || !product.id || !product.nama || !product.harga) {
-    alert("Informasi produk tidak lengkap. Tidak dapat ditambahkan ke keranjang.");
-    return;
+    alert("Informasi produk tidak lengkap. Tidak dapat ditambahkan ke keranjang.")
+    return
+  }
+
+  if (!isDev) {
+    alert('❗ Mode online hanya mendukung tampilan (GET). Tambah keranjang hanya bisa dilakukan secara lokal.')
+    return
   }
 
   try {
-    // 1. Cek apakah produk sudah ada di keranjang berdasarkan productId
-    // JSON Server secara otomatis menambahkan 'id' unik untuk setiap entri baru.
-    // Kita akan menggunakan 'productId' di keranjang untuk mereferensikan 'id' asli dari 'barang'.
-    const existingCartItemRes = await axios.get(`${API_KERANJANG_URL}?productId=${product.id}`);
-    const existingCartItem = existingCartItemRes.data[0]; // Ambil item pertama jika ada
+    const existingCartItemRes = await axios.get(`${API_KERANJANG_URL}?productId=${product.id}`)
+    const existingCartItem = existingCartItemRes.data[0]
 
     if (existingCartItem) {
-      // 2. Jika produk sudah ada, update kuantitasnya
-      const updatedQuantity = existingCartItem.quantity + 1;
+      const updatedQuantity = existingCartItem.quantity + 1
       await axios.put(`${API_KERANJANG_URL}/${existingCartItem.id}`, {
-        ...existingCartItem, // Pertahankan data lain yang sudah ada di item keranjang
+        ...existingCartItem,
         quantity: updatedQuantity
-      });
-      alert(`✅ Kuantitas "${product.nama}" di keranjang diperbarui menjadi ${updatedQuantity}!`);
-      console.log(`Produk "${product.nama}" diupdate di keranjang. Jumlah: ${updatedQuantity}`);
+      })
+      alert(`✅ Kuantitas "${product.nama}" diperbarui menjadi ${updatedQuantity}!`)
     } else {
-      // 3. Jika produk belum ada, tambahkan sebagai item baru
-      // Pastikan data yang dikirim sesuai dengan yang diharapkan di db.json untuk keranjang
       const newCartItem = {
-        productId: product.id, // Menyimpan ID produk asli untuk referensi
+        productId: product.id,
         nama: product.nama,
         harga: product.harga,
-        quantity: 1, // Kuantitas awal 1
-        // Pastikan Anda juga menyimpan deskripsi dan kategori jika diperlukan di keranjang
+        quantity: 1,
         deskripsi: product.deskripsi,
         kategori: product.kategori,
-        // Pastikan path gambar yang disimpan di db.json keranjang adalah yang benar
-        image: product.image || `/images/${product.id}p.jpg` // Gunakan image dari product jika ada, fallback ke path default
-      };
-      await axios.post(API_KERANJANG_URL, newCartItem);
-      alert(`✅ "${product.nama}" berhasil ditambahkan ke keranjang!`);
-      console.log(`Produk "${product.nama}" ditambahkan ke keranjang.`);
+        image: product.image || `/images/${product.id}p.jpg`
+      }
+      await axios.post(API_KERANJANG_URL, newCartItem)
+      alert(`✅ "${product.nama}" berhasil ditambahkan ke keranjang!`)
     }
-
-    // Catatan: Jika Anda memiliki hitungan keranjang di navbar (misalnya di App.vue),
-    // Anda mungkin perlu memicu pembaruan hitungan tersebut di sini.
-    // Ini bisa dilakukan dengan Event Bus, Vuex Store, atau me-refetch data keranjang di App.vue secara berkala.
-
   } catch (err) {
-    console.error('❌ Gagal menambahkan/memperbarui produk di keranjang:', err);
-    alert(`Gagal menambahkan ke keranjang: ${err.message}`);
+    console.error('❌ Gagal menambahkan/memperbarui produk:', err)
+    alert(`Gagal menambahkan ke keranjang: ${err.message}`)
   }
-};
+}
 </script>
+

@@ -81,16 +81,5 @@
       "kategori": "Pancing"
     }
   ],
-  "keranjang": [
-    {
-      "id": "3df6",
-      "productId": "6",
-      "nama": "SATU SET REEL DAN JORAN SOUGAYILANG",
-      "harga": 500000,
-      "quantity": 2,
-      "deskripsi": "Sougayilang Set Pancing Joran Pancing Set Alat Pancing Lengka Joran Pancing Spining Laut Kolam 1.8m Siap Pakai Bahan Karbon Fiber",
-      "kategori": "Pancing",
-      "image": "/Produk/6p.jpg"
-    }
-  ]
+  "keranjang": []
 }

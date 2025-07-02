@@ -4,7 +4,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #f4f4f4;
-  color: #333;
+  color: #ffffff;
 }
 
 /* Fishing Shop Container */
@@ -16,7 +16,7 @@ body {
 
 /* Hero Banner */
 .hero-banner {
-  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/3p.jpg'); /* Pastikan path ini benar */
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/Produk/3p.jpg'); /* Pastikan path ini benar */
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -24,7 +24,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
   border-radius: 10px;
   margin-bottom: 40px;
@@ -36,6 +36,7 @@ body {
   margin-bottom: 20px;
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  color: white; /* Added this line to make the text white */
 }
 
 .hero-banner p {
@@ -48,7 +49,7 @@ body {
 h2 {
   text-align: center;
   font-size: 2.2em;
-  color: #2c3e50; /* Changed from blue to match the provided style's h2 */
+  color: rgb(0, 0, 0); /* Changed from blue to match the provided style's h2 */
   margin-bottom: 30px;
   position: relative;
   padding-bottom: 10px;

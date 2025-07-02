@@ -21,7 +21,7 @@
               <img src="/Tentangkami/4t.jpg" alt="Toko Pancing Ku di tahun 2010">
             </div>
             <div class="history-text">
-              <p>Toko Pancing Ku didirikan pada tahun 2010 oleh Bapak Laras Mangkubuono  , seorang pecinta memancing yang memiliki visi untuk menyediakan peralatan pancing berkualitas dengan harga terjangkau. Bermula dari sebuah kios kecil di Pasar Marpoyan, kini kami telah berkembang menjadi toko peralatan pancing terbesar di wilayah ini.</p>
+              <p>Toko Pancing Ku didirikan pada tahun 2010 oleh Bapak Laras  , seorang pecinta memancing yang memiliki visi untuk menyediakan peralatan pancing berkualitas dengan harga terjangkau. Bermula dari sebuah kios kecil di Pasar Marpoyan, kini kami telah berkembang menjadi toko peralatan pancing terbesar di wilayah ini.</p>
               <p>Dengan pengalaman lebih dari 13 tahun, kami memahami betul kebutuhan para pemancing, baik pemula maupun profesional. Setiap produk yang kami jual telah melalui proses seleksi ketat untuk memastikan kualitas terbaik untuk pelanggan kami.</p>
             </div>
           </div>
@@ -76,7 +76,7 @@
             </div>
             <div class="team-member">
               <img src="/Tentangkami/1t.jpeg" alt="Budi Santoso">
-              <h3>Laras Mangkubuono</h3>
+              <h3>Laras</h3>
               <p class="position">Founder & CEO</p>
               <p class="bio">Pecinta memancing dengan pengalaman 20+ tahun, ahli dalam teknik casting.</p>
             </div>

@@ -49,21 +49,28 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
-import '../style/Keranjang.css';
+import '../style/Keranjang.css'
+
 // State
 const cartItems = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-// Endpoint JSON Server
-const API_KERANJANG_URL = 'http://localhost:3000/keranjang'
+// Deteksi apakah sedang development (lokal)
+const isDev = import.meta.env.DEV
 
-// Total Harga Seluruh Item di Keranjang
+// Endpoint JSON Server dinamis
+const API_KERANJANG_URL = isDev
+  ? 'http://localhost:3000/keranjang'
+  : 'https://tourmaline-spangled-country.glitch.me/keranjang'
+
+
+// Hitung total harga
 const totalCartPrice = computed(() =>
   cartItems.value.reduce((sum, item) => sum + (item.harga * item.quantity), 0)
 )
 
-// Ambil Semua Item dari Keranjang (GET)
+// Ambil data keranjang
 const fetchCartItems = async () => {
   try {
     loading.value = true
@@ -77,9 +84,13 @@ const fetchCartItems = async () => {
   }
 }
 
-// Update Kuantitas Item (PUT)
+// Update kuantitas item
 const updateQuantity = async (id, newQuantity) => {
   if (newQuantity < 1) return
+  if (!isDev) {
+    alert('❗ Edit keranjang hanya bisa dilakukan saat menjalankan server lokal.')
+    return
+  }
 
   const itemIndex = cartItems.value.findIndex(item => item.id === id)
   if (itemIndex === -1) return
@@ -91,13 +102,18 @@ const updateQuantity = async (id, newQuantity) => {
     cartItems.value[itemIndex].quantity = newQuantity
     console.log(`✅ Kuantitas item ${id} berhasil diupdate`)
   } catch (err) {
-    console.error(`❌ Gagal mengupdate kuantitas item ${id}:`, err)
+    console.error(`❌ Gagal mengupdate item ${id}:`, err)
     alert(`Gagal mengupdate kuantitas: ${err.message}`)
   }
 }
 
-// Hapus Item dari Keranjang (DELETE)
+// Hapus item dari keranjang
 const deleteItem = async (id) => {
+  if (!isDev) {
+    alert('❗ Penghapusan hanya tersedia saat menggunakan server lokal.')
+    return
+  }
+
   const confirmed = confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')
   if (!confirmed) return
 
@@ -111,6 +127,6 @@ const deleteItem = async (id) => {
   }
 }
 
-// Fetch data keranjang saat komponen dimount
+// Fetch data saat komponen dimount
 onMounted(fetchCartItems)
 </script>
