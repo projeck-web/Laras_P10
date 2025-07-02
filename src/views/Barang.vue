@@ -103,19 +103,11 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import '../style/Barang.css'
+import { Barang } from '../java/Barang'; // Ini adalah contoh import JS yang Anda tanyakan
 
 const produkList = ref([])
 
-// Gunakan server lokal saat development, server online saat production (read-only)
-const isDev = import.meta.env.DEV
 
-const API_BARANG_URL = isDev
-  ? 'http://localhost:3000/barang'
-  : 'https://tourmaline-spangled-country.glitch.me/barang'
-
-const API_KERANJANG_URL = isDev
-  ? 'http://localhost:3000/keranjang'
-  : 'https://tourmaline-spangled-country.glitch.me/keranjang'
 
 onMounted(async () => {
   try {

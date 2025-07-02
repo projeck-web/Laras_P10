@@ -70,6 +70,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/Pinia'
 import '../style/Login.css';
+import { login } from '../java/Login';
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -85,7 +86,7 @@ const handleLogin = async () => {
   }
 
   try {
-    const res = await fetch(`: 'https://tourmaline-spangled-country.glitch.me/users'${username.value}&password=${password.value}`)
+    const res = await fetch(`: 'https://tourmaline-spangled-country.glitch.me/users='${username.value}&password=${password.value}`)
     const data = await res.json()
 
     if (data.length > 0) {
