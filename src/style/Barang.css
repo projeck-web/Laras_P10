@@ -7,16 +7,16 @@ body {
   color: #ffffff;
 }
 
-/* Fishing Shop Container */
+
 .fishing-shop {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Hero Banner */
+
 .hero-banner {
-  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/Produk/3p.jpg'); /* Pastikan path ini benar */
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/Produk/3p.jpg'); 
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -32,24 +32,24 @@ body {
 }
 
 .hero-banner h1 {
-  font-size: 3.5em; /* Adjusted slightly from 3rem for consistency */
+  font-size: 3.5em;
   margin-bottom: 20px;
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  color: white; /* Added this line to make the text white */
+  color: white;
 }
 
 .hero-banner p {
-  font-size: 1.5em; /* Adjusted slightly from 1.5rem for consistency */
+  font-size: 1.5em;
   opacity: 0.9;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Section Headings */
+
 h2 {
   text-align: center;
   font-size: 2.2em;
-  color: rgb(0, 0, 0); /* Changed from blue to match the provided style's h2 */
+  color: rgb(0, 0, 0);
   margin-bottom: 30px;
   position: relative;
   padding-bottom: 10px;
@@ -61,13 +61,13 @@ h2::after {
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 100px; /* Adjusted width */
-  height: 3px; /* Adjusted height */
-  background-color: #3498db; /* Blue underline */
+  width: 100px;
+  height: 3px; 
+  background-color: #3498db;
   border-radius: 2px;
 }
 
-/* Featured Section */
+
 .featured-section {
   margin-bottom: 60px;
   background-color: #fff;
@@ -107,34 +107,34 @@ h2::after {
 
 .product-card.featured h3 {
   font-size: 1.8em;
-  color: #2c3e50; /* Adjusted from blue */
+  color: #2c3e50;
   margin-top: 0;
   margin-bottom: 10px;
 }
 
 .product-card.featured p {
   font-size: 1em;
-  color: #7f8c8d; /* Adjusted from #555 */
+  color: #7f8c8d; 
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
 .product-card.featured .price {
   font-size: 1.8em;
-  color: #e74c3c; /* Adjusted from #dc3545 */
+  color: #e74c3c;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-/* Products Section (Grid) */
+
 .products-section {
   margin-bottom: 60px;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for consistency */
-  gap: 25px; /* Adjusted for consistency */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
   justify-content: center;
 }
 
@@ -172,10 +172,10 @@ h2::after {
 
 .product-card h3 {
   font-size: 1.3em;
-  color: #2c3e50; /* Adjusted from #333 */
+  color: #2c3e50;
   margin-top: 0;
   margin-bottom: 10px;
-  min-height: 2.6em; /* To ensure consistent height for titles */
+  min-height: 2.6em;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -184,11 +184,11 @@ h2::after {
 
 .product-card p {
   font-size: 0.9em;
-  color: #7f8c8d; /* Adjusted from #666 */
+  color: #7f8c8d;
   line-height: 1.4;
   margin-bottom: 15px;
   flex-grow: 1;
-  min-height: 3.6em; /* To ensure consistent height for descriptions */
+  min-height: 3.6em;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -197,38 +197,38 @@ h2::after {
 
 .product-card .price {
   font-size: 1.4em;
-  color: #e74c3c; /* Adjusted from #007bff */
+  color: #e74c3c;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
-/* Button Styles */
+
 .btn-detail {
   display: inline-block;
-  background-color: #3498db; /* Adjusted from #007bff */
+  background-color: #84422cb7;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  border: none; /* Remove button default border */
-  cursor: pointer; /* Indicate it's clickable */
-  width: calc(100% - 30px); /* Adjust width to fit padding */
-  margin: 0 auto; /* Center the button */
+  border: none; 
+  cursor: pointer;
+  width: calc(100% - 30px);
+  margin: 0 auto;
 }
 
 .btn-detail:hover {
-  background-color: #2980b9; /* Adjusted from #0056b3 */
+  background-color: #a37768;
 }
 
-/* Promo Section */
+
 .promo-section {
   margin-bottom: 60px;
 }
 
 .promo-banner {
-  background-color: #e74c3c; /* Adjusted to solid color */
+  background-color: #e74c3c;
   color: white;
   text-align: center;
   padding: 50px 20px;
@@ -253,7 +253,7 @@ h2::after {
 
 .btn-promo {
   background-color: white;
-  color: #e74c3c; /* Adjusted to promo banner color */
+  color: #e74c3c; 
   padding: 15px 30px;
   border-radius: 30px;
   text-decoration: none;
@@ -265,11 +265,11 @@ h2::after {
 }
 
 .btn-promo:hover {
-  background-color: #f1c40f; /* Yellow on hover */
-  color: #2c3e50; /* Dark text on yellow hover */
+  background-color: #f1c40f;
+  color: #2c3e50; 
 }
 
-/* Testimonial Section */
+
 .testimonial-section {
   margin-bottom: 60px;
 }
@@ -281,7 +281,7 @@ h2::after {
 }
 
 .testimonial-card {
-  background-color: #f8f9fa; /* Light grey background */
+  background-color: #f8f9fa;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 25px;
@@ -292,21 +292,21 @@ h2::after {
 .testimonial-card p {
   font-style: italic;
   font-size: 1.1em;
-  color: #2c3e50; /* Dark text */
+  color: #2c3e50;
   margin-bottom: 15px;
   line-height: 1.6;
 }
 
 .testimonial-card .customer {
   font-weight: bold;
-  color: #7f8c8d; /* Grey text */
+  color: #7f8c8d;
   font-size: 1em;
   text-align: right;
 }
 
-/* Footer */
+
 .site-footer {
-  background-color: #84422cb7; /* Semi-transparent brown */
+  background-color: #84422cb7;
   color: #ecf0f1;
   padding: 50px 0 0;
   margin-top: 50px;
@@ -326,7 +326,7 @@ h2::after {
 }
 
 .footer-section h3 {
-  color: #f1c40f; /* Yellow for footer headings */
+  color: #f1c40f;
   font-size: 1.4em;
   margin-bottom: 20px;
   position: relative;
@@ -402,7 +402,7 @@ h2::after {
 }
 
 .footer-bottom {
-  background-color: #2f1a1aa7; /* Slightly darker semi-transparent brown */
+  background-color: #2f1a1aa7;
   padding: 20px 0;
   text-align: center;
   margin-top: 30px;
@@ -414,7 +414,7 @@ h2::after {
   font-size: 0.9em;
 }
 
-/* Responsive Design */
+
 @media (max-width: 992px) {
   .product-card.featured {
       flex-direction: column;
@@ -462,7 +462,7 @@ h2::after {
   .footer-section h3 {
       display: block;
       margin: 0 auto 20px;
-      text-align: center; /* Center footer headings */
+      text-align: center; 
   }
 
   .footer-section h3::after {

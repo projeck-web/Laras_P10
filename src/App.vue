@@ -11,13 +11,13 @@ import { useUserStore } from './store/Pinia'
 
 const userStore = useUserStore()
 
-// Ambil user dari localStorage jika ada
+
 const savedUser = JSON.parse(localStorage.getItem('user'))
 if (savedUser) {
   userStore.login(savedUser.username, savedUser.password)
 }
 
-// Log ke console untuk melihat apakah store Pinia bekerja
+
 console.log('[Pinia Debug] Store status:')
 console.log('isLoggedIn:', userStore.isLoggedIn)
 console.log('username:', userStore.username)

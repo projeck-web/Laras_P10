@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Hero Section dengan Background Image -->
+
     <div class="hero">
       <div class="hero-content">
         <h1>Toko Pancing Ku</h1>
@@ -9,11 +9,11 @@
       </div>
     </div>
 
-    <!-- Section Testimoni -->
+
     <div class="testimonial-section">
       <h2 class="testimonial-title">Apa Kata Pelanggan Kami?</h2>
       <div class="testimonial-container">
-        <!-- Testimoni 1 -->
+
         <div class="testimonial-card">
           <div class="testimonial-profile">
             <img src="/Beranda/5.jpg" alt="Juliat A" class="profile-image">
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <!-- Testimoni 2 -->
+
         <div class="testimonial-card">
           <div class="testimonial-profile">
             <img src="/Beranda/4.jpg" alt="Budi" class="profile-image">
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <!-- Testimoni 3 -->
+
         <div class="testimonial-card">
           <div class="testimonial-profile">
             <img src="/Beranda/1.jpg" alt="Putra" class="profile-image">

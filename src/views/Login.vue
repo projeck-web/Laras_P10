@@ -78,6 +78,14 @@ const username = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 
+
+const isDev = import.meta.env.DEV;
+
+// Pemanggilan API
+const API_USERS_URL = isDev
+  ? 'http://localhost:3000/users' 
+  : 'https://tourmaline-spangled-country.glitch.me/users';
+
 const handleLogin = async () => {
   if (!username.value || !password.value) {
     alert('Username dan password tidak boleh kosong')
@@ -85,14 +93,24 @@ const handleLogin = async () => {
   }
 
   try {
-    const res = await fetch(`: 'https://tourmaline-spangled-country.glitch.me/users='${username.value}&password=${password.value}`)
+    const loginUrl = `${API_USERS_URL}?username=${username.value}&password=${password.value}`;
+
+
+    const res = await fetch(loginUrl)
+    
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Gagal mengambil data dari server: ${res.status} ${res.statusText} - ${errorText}`);
+    }
+
     const data = await res.json()
 
     if (data.length > 0) {
-      // User ditemukan, simpan ke Pinia
+
       userStore.login(data[0].username, data[0].password)
 
-      // ✅ Tampilkan log jika Pinia berhasil menyimpan state
+
       if (userStore.isLoggedIn) {
         console.log('✅ Login berhasil dengan JSON Server')
         console.log('✅ Pinia berhasil menyimpan status login')
@@ -102,11 +120,12 @@ const handleLogin = async () => {
         console.warn('⚠️ Login ke Pinia gagal — isLoggedIn masih false')
       }
 
-      // Simpan ke localStorage jika centang "Ingat Saya"
+
       if (rememberMe.value) {
+
         localStorage.setItem('user', JSON.stringify({
           username: data[0].username,
-          password: data[0].password
+
         }))
       }
 
@@ -117,7 +136,7 @@ const handleLogin = async () => {
     }
   } catch (error) {
     console.error('❌ Error saat login:', error)
-    alert('Terjadi kesalahan saat menghubungi server')
+    alert('Terjadi kesalahan saat menghubungi server: ' + error.message)
   }
 }
 </script>

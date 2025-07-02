@@ -51,26 +51,26 @@ import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import '../style/Keranjang.css'
 
-// State
+
 const cartItems = ref([])
 const loading = ref(true)
 const error = ref(null)
 
-// Deteksi apakah sedang development (lokal)
+
 const isDev = import.meta.env.DEV
 
-// Endpoint JSON Server dinamis
+//Pemanggilan API
 const API_KERANJANG_URL = isDev
   ? 'http://localhost:3000/keranjang'
   : 'https://tourmaline-spangled-country.glitch.me/keranjang'
 
 
-// Hitung total harga
+
 const totalCartPrice = computed(() =>
   cartItems.value.reduce((sum, item) => sum + (item.harga * item.quantity), 0)
 )
 
-// Ambil data keranjang
+
 const fetchCartItems = async () => {
   try {
     loading.value = true
@@ -84,16 +84,11 @@ const fetchCartItems = async () => {
   }
 }
 
-// Update kuantitas item
+
 const updateQuantity = async (id, newQuantity) => {
   if (newQuantity < 1) return
 
-  // --- HAPUS ATAU KOMENTARI BLOK INI ---
-  // if (!isDev) {
-  //   alert('❗ Edit keranjang hanya bisa dilakukan saat menjalankan server lokal.')
-  //   return
-  // }
-  // ------------------------------------
+
 
   const itemIndex = cartItems.value.findIndex(item => item.id === id)
   if (itemIndex === -1) return
@@ -110,14 +105,9 @@ const updateQuantity = async (id, newQuantity) => {
   }
 }
 
-// Hapus item dari keranjang
+
 const deleteItem = async (id) => {
-  // --- HAPUS ATAU KOMENTARI BLOK INI ---
-  // if (!isDev) {
-  //   alert('❗ Penghapusan hanya tersedia saat menggunakan server lokal.')
-  //   return
-  // }
-  // ------------------------------------
+
 
   const confirmed = confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')
   if (!confirmed) return
@@ -132,6 +122,6 @@ const deleteItem = async (id) => {
   }
 }
 
-// Fetch data saat komponen dimount
+
 onMounted(fetchCartItems)
 </script>

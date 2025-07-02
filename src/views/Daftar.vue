@@ -37,23 +37,23 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import '../style/Daftar.css'
+import '../style/Daftar.css' 
 
-// State input form
+
 const username = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const router = useRouter()
 
-// Gunakan server lokal saat development, server online saat production (read-only)
+//Pemanggilan API
 const isDev = import.meta.env.DEV
 const API_USERS_URL = isDev
   ? 'http://localhost:3000/users'
   : 'https://tourmaline-spangled-country.glitch.me/users'
 
 const handleRegister = async () => {
-  // Validasi input
+
   if (!username.value || !email.value || !password.value || !confirmPassword.value) {
     alert('❗ Semua field harus diisi!')
     return
@@ -75,7 +75,7 @@ const handleRegister = async () => {
   }
 
   try {
-    // 1. Cek apakah username sudah ada
+
     const checkRes = await axios.get(`${API_USERS_URL}?username=${username.value}`)
     
     if (checkRes.data.length > 0) {
@@ -83,13 +83,7 @@ const handleRegister = async () => {
       return
     }
 
-    // 2. Kalau sedang online (read-only), tampilkan pesan bahwa pendaftaran hanya bisa lokal
-    if (!isDev) {
-      alert('⚠️ Server online hanya bisa dibaca (read-only). Gunakan lokal untuk daftar.')
-      return
-    }
-
-    // 3. Tambahkan user baru
+    
     const newUser = {
       username: username.value,
       email: email.value,
@@ -100,7 +94,7 @@ const handleRegister = async () => {
 
     alert('✅ Pendaftaran berhasil! Silakan login.')
 
-    // Reset form
+    
     username.value = ''
     email.value = ''
     password.value = ''

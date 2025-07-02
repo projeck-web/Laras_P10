@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="about-page">
-    <!-- Hero Section -->
+
       <section class="about-hero">
         <div class="hero-overlay">
           <h1>Tentang Toko Pancing Ku</h1>
@@ -9,7 +9,7 @@
         </div>
       </section>
 
-    <!-- Sejarah Toko -->
+
       <section class="about-section history-section">
         <div class="container">
           <div class="section-header">
@@ -28,7 +28,7 @@
         </div>
       </section>
 
-    <!-- Visi Misi -->
+
       <section class="about-section vision-section">
         <div class="container">
           <div class="section-header">
@@ -59,7 +59,7 @@
         </div>
       </section>
 
-    <!-- Tim -->
+
       <section class="about-section team-section">
         <div class="container">
           <div class="section-header">

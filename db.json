@@ -72,13 +72,31 @@
       "kategori": "Pancing"
     },
     {
-      "id": "6",
-      "nama": "SATU SET REEL DAN JORAN SOUGAYILANG",
-      "deskripsi": "Sougayilang Set Pancing Joran Pancing Set Alat Pancing Lengka Joran Pancing Spining Laut Kolam 1.8m Siap Pakai Bahan Karbon Fiber",
+      "id": "9",
+      "nama": "PELAMPUNG UMPAN PANCING FISHING BOBBER 10 PCS - P016",
+      "deskripsi": "Kumbul pancing atau pelampung untuk pancingan merupakan salah satu aksesori wajib yang dimiliki oleh setiap pemancing. Kumbul akan memberikan informasi saat adanya tarikan dari ikan yang menyantap umpan Anda. Terdapat 10 buah kumbul pancing pada setiap set untuk melengkapi kegiatan memancing Anda.",
       "harga": 500000,
       "stok": 10,
-      "image": "/Produk/6p.jpg",
+      "image": "/Produk/9p.jpg",
       "kategori": "Pancing"
+    },
+    {
+      "id": "7",
+      "nama": "UMPAN GABUS/TOMAN BUZZBAIT BUBLE ALURE",
+      "deskripsi": "Buzzbait mini Bubble Single Propeller. Suara merdu mirip Whopller poper. Cocok untuk Gabus Dan Toman. Kawat 1.5mm, Barat : 11gr, Panjang : 8cm, Double Hook 3/0. Kecil, kuat, kokoh Dan Elegant. wajib punya pokoknya. ",
+      "harga": 500000,
+      "stok": 10,
+      "image": "/Produk/7p.jpg",
+      "kategori": "Umpan"
+    },
+    {
+      "id": "8",
+      "nama": "SENAR PE PANCING SUPER KUAT 300 METER - X12",
+      "deskripsi": "Senar pancing ini terbuat dari material PE braided yang sangat kuat. Sangat cocok untuk digunakan memancing ikan kecil maupun besar. Tali pancing ini dapat diaplikasikan untuk semua jenis reel pancing.",
+      "harga": 100000,
+      "stok": 10,
+      "image": "/Produk/8p.jpg",
+      "kategori": "Senar"
     }
   ],
   "keranjang": []

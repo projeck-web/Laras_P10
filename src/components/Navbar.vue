@@ -77,7 +77,7 @@ li a {
   text-decoration: none;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: bold;
-  font-size: 3ch;
+  font-size: 2.1ch;
 }
 
 li a.router-link-active {

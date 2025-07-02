@@ -2,7 +2,7 @@
   background-image: url('/Beranda/3.jpg');
   background-size: cover;
   background-position: center;
-  color: rgb(255, 255, 255); /* This sets the default text color for hero, but h1 overrides it */
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 80px 20px;
   position: relative;
@@ -30,7 +30,7 @@ h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
   font-weight: bold;
-  color: white; /* Changed from #ddd to white */
+  color: white;
 }
 
 p {
@@ -45,7 +45,7 @@ p {
   margin-top: 20px;
 }
 
-/* Testimonial Section Styles */
+
 .testimonial-section {
   padding: 60px 20px;
   background-color: #f8f9fa;
@@ -118,7 +118,7 @@ p {
   margin: 0;
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
   .testimonial-card {
     padding: 20px;
@@ -252,7 +252,7 @@ p {
   font-size: 0.9em;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .footer-container {
     grid-template-columns: 1fr;

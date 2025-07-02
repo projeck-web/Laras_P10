@@ -102,14 +102,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import '../style/Barang.css' // Pastikan ini diimpor jika diperlukan untuk gaya
-import { Barang } from '../java/Barang' // Ini adalah contoh import JS yang Anda tanyakan
-
+import '../style/Barang.css' 
 const produkList = ref([])
 
-// Gunakan server lokal saat development, server online saat production (read-only)
-const isDev = import.meta.env.DEV
 
+const isDev = import.meta.env.DEV
+// Pemanggilan API
 const API_BARANG_URL = isDev
   ? 'http://localhost:3000/barang'
   : 'https://tourmaline-spangled-country.glitch.me/barang'
@@ -128,7 +126,7 @@ onMounted(async () => {
   }
 })
 
-// Fungsi untuk menambahkan produk ke keranjang
+
 const addToCart = async (product) => {
   if (!product || !product.id || !product.nama || !product.harga) {
     alert("Informasi produk tidak lengkap. Tidak dapat ditambahkan ke keranjang.")
