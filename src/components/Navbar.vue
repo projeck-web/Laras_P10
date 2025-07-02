@@ -7,7 +7,9 @@
     <ul class="menu-center">
       <li><router-link to="/">Beranda</router-link></li>
       <li><router-link to="/barang">Produk</router-link></li>
+      <li><router-link to="/keranjang">Keranjang</router-link></li>
       <li><router-link to="/tentang-kami">Tentang Kami</router-link></li>
+
     </ul>
     <ul class="menu-right">
       <li><router-link to="/login">Login</router-link></li>

@@ -1,0 +1,96 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "laras",
+      "email": "larasgann@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "2",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin"
+    },
+    {
+      "id": "5dcd",
+      "username": "agus",
+      "email": "agus@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "462b",
+      "username": "jamal",
+      "email": "jamal@gmail.com",
+      "password": "123"
+    }
+  ],
+  "barang": [
+    {
+      "id": "1",
+      "nama": "CARBON TELESCOPIC",
+      "deskripsi": "Set Telescopic Fishing Rod 5 Sections Carbon Fiber",
+      "harga": 99999,
+      "stok": 50,
+      "image": "/Produk/1p.jpg",
+      "kategori": "Pancing"
+    },
+    {
+      "id": "2",
+      "nama": "REEL ABU GARCIA 2000SH",
+      "deskripsi": "Reel Abu Garcia Revo MGXTREME 2000SH 12BB Carbon Body Smooth",
+      "harga": 415000,
+      "stok": 20,
+      "image": "/Produk/2p.jpg",
+      "kategori": "Pancing"
+    },
+    {
+      "id": "3",
+      "nama": "SENAR PANCING POWERPRO",
+      "deskripsi": "Senar Pancing Braided PowerPro 100m Super Kuat",
+      "harga": 75000,
+      "stok": 100,
+      "image": "/Produk/3p.jpg",
+      "kategori": "Pancing"
+    },
+    {
+      "id": "4",
+      "nama": "SET REEL DAN JORAN",
+      "deskripsi": "Satu set reel dan joran 1.8M~2.1M dan reel full metal Setelan warna ungu",
+      "harga": 259000,
+      "stok": 15,
+      "image": "/Produk/4p.jpg",
+      "kategori": "Pancing"
+    },
+    {
+      "id": "5",
+      "nama": "SEASIR MERCURY PRO",
+      "deskripsi": "Reel Pancing BaitCasting Fishing, Drag Clicker, 5+1 BB Ball Bearings",
+      "harga": 423000,
+      "stok": 25,
+      "image": "/Produk/5p.jpg",
+      "kategori": "Pancing"
+    },
+    {
+      "id": "6",
+      "nama": "SATU SET REEL DAN JORAN SOUGAYILANG",
+      "deskripsi": "Sougayilang Set Pancing Joran Pancing Set Alat Pancing Lengka Joran Pancing Spining Laut Kolam 1.8m Siap Pakai Bahan Karbon Fiber",
+      "harga": 500000,
+      "stok": 10,
+      "image": "/Produk/6p.jpg",
+      "kategori": "Pancing"
+    }
+  ],
+  "keranjang": [
+    {
+      "id": "3df6",
+      "productId": "6",
+      "nama": "SATU SET REEL DAN JORAN SOUGAYILANG",
+      "harga": 500000,
+      "quantity": 2,
+      "deskripsi": "Sougayilang Set Pancing Joran Pancing Set Alat Pancing Lengka Joran Pancing Spining Laut Kolam 1.8m Siap Pakai Bahan Karbon Fiber",
+      "kategori": "Pancing",
+      "image": "/Produk/6p.jpg"
+    }
+  ]
+}
