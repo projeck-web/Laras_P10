@@ -102,7 +102,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import '../style/Barang.css'
+import '../style/Barang.css' // Pastikan ini diimpor jika diperlukan untuk gaya
+import { Barang } from '../java/Barang' // Ini adalah contoh import JS yang Anda tanyakan
 
 const produkList = ref([])
 
@@ -131,11 +132,6 @@ onMounted(async () => {
 const addToCart = async (product) => {
   if (!product || !product.id || !product.nama || !product.harga) {
     alert("Informasi produk tidak lengkap. Tidak dapat ditambahkan ke keranjang.")
-    return
-  }
-
-  if (!isDev) {
-    alert('❗ Mode online hanya mendukung tampilan (GET). Tambah keranjang hanya bisa dilakukan secara lokal.')
     return
   }
 
