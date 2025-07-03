@@ -107,10 +107,8 @@ const handleLogin = async () => {
     const data = await res.json()
 
     if (data.length > 0) {
-
+      // pemanggilan action login dari Pinia
       userStore.login(data[0].username, data[0].password)
-
-
       if (userStore.isLoggedIn) {
         console.log('✅ Login berhasil dengan JSON Server')
         console.log('✅ Pinia berhasil menyimpan status login')
