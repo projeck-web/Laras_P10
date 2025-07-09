@@ -62,7 +62,7 @@ const isDev = import.meta.env.DEV
 //Pemanggilan API
 const API_KERANJANG_URL = isDev
   ? 'http://localhost:3000/keranjang'
-  : 'https://tourmaline-spangled-country.glitch.me/keranjang'
+  : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/keranjang'
 
 
 

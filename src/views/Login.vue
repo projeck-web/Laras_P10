@@ -84,7 +84,7 @@ const isDev = import.meta.env.DEV;
 // Pemanggilan API
 const API_USERS_URL = isDev
   ? 'http://localhost:3000/users' 
-  : 'https://tourmaline-spangled-country.glitch.me/users';
+  : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/users';
 
 const handleLogin = async () => {
   if (!username.value || !password.value) {
