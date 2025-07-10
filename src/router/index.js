@@ -13,7 +13,8 @@ const routes = [
   { path: '/tentang-kami', name: 'TentangKami', component: TentangKami },
   { path: '/login', name: 'Login', component: Login },
   { path: '/daftar', name: 'Daftar', component: Daftar },
-  { path: '/Keranjang', name: 'Keranjang', component: () => import('@/views/Keranjang.vue') }
+  { path: '/Keranjang', name: 'Keranjang', component: Keranjang }
+
 ]
 
 const router = createRouter({

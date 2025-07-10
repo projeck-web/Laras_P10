@@ -29,7 +29,7 @@
             <div class="product-info">
               <h3>{{ produk.nama }}</h3>
               <p>{{ produk.deskripsi }}</p>
-              <div class="price">Rp {{ produk.harga.toLocaleString('id-ID') }}</div>
+              <div class="price">Rp {{ produk.harga ? produk.harga.toLocaleString('id-ID') : 'N/A' }}</div>
               <button @click="addToCart(produk)" class="btn-detail">MASUKKAN KERANJANG</button>
             </div>
           </div>
@@ -100,67 +100,98 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import '../style/Barang.css' 
-const produkList = ref([])
+import { ref, onMounted } from 'vue';
+import '../style/Barang.css';
+// import { db } from '@/firebase.js';
+import { db } from '../firebase.js';
+import { collection, getDocs, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 
-const isDev = import.meta.env.DEV
-// Pemanggilan API
-const API_BARANG_URL = isDev
-  ? 'http://localhost:3000/barang'
-  : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/barang'
+const produkList = ref([]);
+// Tidak perlu lagi isDev dan URL Replit
+// const isDev = import.meta.env.DEV
+// const API_BARANG_URL = isDev
+//   ? 'http://localhost:3000/barang'
+//   : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/barang'
 
-const API_KERANJANG_URL = isDev
-  ? 'http://localhost:3000/keranjang'
-  : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/keranjang'
+// const API_KERANJANG_URL = isDev
+//   ? 'http://localhost:3000/keranjang'
+//   : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/keranjang'
+
+// ID dokumen untuk keranjang. Ini akan menjadi ID yang sama untuk semua user jika tidak ada auth.
+// Anda bisa mengubahnya menjadi ID yang lebih dinamis atau diambil dari Local Storage jika perlu
+const cartDocId = 'globalUserCart';
 
 onMounted(async () => {
   try {
-    const res = await axios.get(API_BARANG_URL)
-    produkList.value = res.data
+    // Mengambil data barang dari Firestore
+    const barangCol = collection(db, 'barang');
+    const barangSnapshot = await getDocs(barangCol);
+    produkList.value = barangSnapshot.docs.map(doc => ({
+      id: doc.id, // ID dokumen Firestore menjadi ID produk
+      ...doc.data() // Mengambil semua data field dari dokumen
+    }));
+    console.log("Data produk berhasil diambil dari Firebase:", produkList.value);
   } catch (err) {
-    console.error('Gagal memuat produk:', err)
-    alert('❌ Gagal mengambil data produk.')
+    console.error('Gagal memuat produk dari Firebase:', err);
+    alert('❌ Gagal mengambil data produk dari server.'); // Ubah pesan alert
   }
-})
+});
 
 
 const addToCart = async (product) => {
   if (!product || !product.id || !product.nama || !product.harga) {
-    alert("Informasi produk tidak lengkap. Tidak dapat ditambahkan ke keranjang.")
-    return
+    alert("Informasi produk tidak lengkap. Tidak dapat ditambahkan ke keranjang.");
+    return;
   }
 
   try {
-    const existingCartItemRes = await axios.get(`${API_KERANJANG_URL}?productId=${product.id}`)
-    const existingCartItem = existingCartItemRes.data[0]
+    const cartRef = doc(db, 'keranjang', cartDocId); // Referensi ke dokumen keranjang
+    const cartSnap = await getDoc(cartRef); // Ambil snapshot dokumen keranjang
 
-    if (existingCartItem) {
-      const updatedQuantity = existingCartItem.quantity + 1
-      await axios.put(`${API_KERANJANG_URL}/${existingCartItem.id}`, {
-        ...existingCartItem,
-        quantity: updatedQuantity
-      })
-      alert(`✅ Kuantitas "${product.nama}" diperbarui menjadi ${updatedQuantity}!`)
-    } else {
-      const newCartItem = {
-        productId: product.id,
-        nama: product.nama,
-        harga: product.harga,
-        quantity: 1,
-        deskripsi: product.deskripsi,
-        kategori: product.kategori,
-        image: product.image || `/images/${product.id}p.jpg`
+    // Detail produk yang akan ditambahkan/diupdate di keranjang
+    const itemToAdd = {
+      productId: product.id,
+      nama: product.nama,
+      harga: product.harga,
+      // Tambahkan deskripsi, kategori, dan image jika Anda membutuhkannya di keranjang
+      deskripsi: product.deskripsi,
+      kategori: product.kategori,
+      image: product.image,
+      qty: 1 // Kuantitas awal
+    };
+
+    if (cartSnap.exists()) {
+      // Keranjang sudah ada, update isinya
+      const cartData = cartSnap.data();
+      const items = cartData.items || []; // Pastikan items adalah array, inisialisasi jika null/undefined
+
+      const existingItemIndex = items.findIndex(item => item.productId === product.id);
+
+      if (existingItemIndex > -1) {
+        // Jika produk sudah ada di keranjang, tambahkan kuantitasnya
+        items[existingItemIndex].qty += 1;
+      } else {
+        // Jika produk belum ada, tambahkan item baru ke array
+        items.push(itemToAdd);
       }
-      await axios.post(API_KERANJANG_URL, newCartItem)
-      alert(`✅ "${product.nama}" berhasil ditambahkan ke keranjang!`)
+      // Lakukan update dokumen keranjang dengan array items yang baru
+      await updateDoc(cartRef, { items: items, lastUpdated: new Date() });
+      alert(`✅ Kuantitas "${product.nama}" di keranjang diperbarui!`);
+
+    } else {
+      // Keranjang belum ada, buat dokumen keranjang baru
+      await setDoc(cartRef, {
+        items: [itemToAdd], // Masukkan produk pertama sebagai array
+        createdAt: new Date(),
+        lastUpdated: new Date()
+      });
+      alert(`✅ "${product.nama}" berhasil ditambahkan ke keranjang baru!`);
     }
   } catch (err) {
-    console.error('❌ Gagal menambahkan/memperbarui produk:', err)
-    alert(`Gagal menambahkan ke keranjang: ${err.message}`)
+    console.error('❌ Gagal menambahkan/memperbarui produk ke keranjang Firebase:', err);
+    alert(`Gagal menambahkan ke keranjang: ${err.message}`);
   }
-}
+};
 </script>
 

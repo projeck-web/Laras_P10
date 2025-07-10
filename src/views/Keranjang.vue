@@ -6,9 +6,9 @@
     <div class="shopping-cart-container">
       <div v-if="loading" class="loading-message">Memuat keranjang belanja...</div>
       <div v-else-if="error" class="error-message">Terjadi kesalahan: {{ error.message }}</div>
-      <div v-else-if="cartItems.length === 0" class="empty-cart-message">Keranjang Anda kosong. <router-link to="/">Mulai Belanja</router-link></div>
+      <div v-else-if="!cartItems || cartItems.length === 0" class="empty-cart-message">Keranjang Anda kosong. <router-link to="/">Mulai Belanja</router-link></div>
       <div v-else class="cart-items-list">
-        <div class="cart-item-card" v-for="item in cartItems" :key="item.id">
+        <div class="cart-item-card" v-for="item in cartItems" :key="item.productId">
           <div class="item-thumbnail-placeholder">
             <img :src="item.image || '/images/default.jpg'" :alt="item.nama">
           </div>
@@ -20,26 +20,31 @@
               <span v-if="item.kategori" class="item-category">{{ item.kategori }}</span>
             </div>
           </div>
-          
+
           <div class="item-controls-group">
             <div class="quantity-control-compact">
-              <button @click="updateQuantity(item.id, item.quantity - 1)" :disabled="item.quantity <= 1" class="btn-qty-compact btn-minus-compact">
+              <button @click="updateQuantity(item.productId, item.qty - 1)" :disabled="item.qty <= 1" class="btn-qty-compact btn-minus-compact">
                 <i class="fas fa-minus"></i>
               </button>
-              <span class="quantity-display-compact">{{ item.quantity }}</span>
-              <button @click="updateQuantity(item.id, item.quantity + 1)" class="btn-qty-compact btn-plus-compact">
+              <span class="quantity-display-compact">{{ item.qty }}</span>
+              <button @click="updateQuantity(item.productId, item.qty + 1)" class="btn-qty-compact btn-plus-compact">
                 <i class="fas fa-plus"></i>
               </button>
             </div>
             <div class="subtotal-amount">
               Subtotal:
-              <span>Rp {{ (item.harga * item.quantity).toLocaleString('id-ID') }}</span>
+              <span>Rp {{ (item.harga * item.qty).toLocaleString('id-ID') }}</span>
             </div>
-            <button @click="deleteItem(item.id)" class="btn-hapus-compact">
+            <button @click="deleteItem(item.productId)" class="btn-hapus-compact">
               <i class="fas fa-trash-alt"></i> Hapus
             </button>
           </div>
         </div>
+      </div>
+
+      <div v-if="cartItems.length > 0" class="cart-summary">
+        <h2>Total Keranjang: Rp {{ totalCartPrice.toLocaleString('id-ID') }}</h2>
+        <button class="btn-checkout">Checkout</button>
       </div>
 
     </div>
@@ -47,81 +52,100 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import axios from 'axios'
-import '../style/Keranjang.css'
+import { ref, onMounted, computed } from 'vue';
+import '../style/Keranjang.css';
 
+// PERBAIKAN PADA BARIS INI: Menggunakan jalur relatif
+// Sebelumnya: import { db } from '@/firebase.js';
+import { db } from '../firebase.js'; //
 
-const cartItems = ref([])
-const loading = ref(true)
-const error = ref(null)
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
+const cartItems = ref([]);
+const loading = ref(true);
+const error = ref(null);
 
-const isDev = import.meta.env.DEV
-
-//Pemanggilan API
-const API_KERANJANG_URL = isDev
-  ? 'http://localhost:3000/keranjang'
-  : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/keranjang'
-
+// ID dokumen untuk keranjang. Harus konsisten dengan yang digunakan di Barang.vue.
+const cartDocId = 'globalUserCart';
 
 
 const totalCartPrice = computed(() =>
-  cartItems.value.reduce((sum, item) => sum + (item.harga * item.quantity), 0)
-)
+  // Menggunakan 'item.qty' karena ini field yang disimpan di Firestore
+  cartItems.value.reduce((sum, item) => sum + (item.harga * item.qty), 0)
+);
 
 
 const fetchCartItems = async () => {
   try {
-    loading.value = true
-    const response = await axios.get(API_KERANJANG_URL)
-    cartItems.value = response.data
+    loading.value = true;
+    const cartRef = doc(db, 'keranjang', cartDocId); // Referensi ke dokumen keranjang
+    const cartSnap = await getDoc(cartRef); // Ambil snapshot dokumen keranjang
+
+    if (cartSnap.exists()) {
+      // Jika dokumen keranjang ada, ambil array 'items' nya
+      const cartData = cartSnap.data();
+      cartItems.value = cartData.items || []; // Jika 'items' kosong/null, jadikan array kosong
+      console.log("Data keranjang berhasil diambil dari Firebase:", cartItems.value);
+    } else {
+      cartItems.value = []; // Keranjang kosong jika dokumen tidak ada
+      console.log("Dokumen keranjang tidak ditemukan di Firebase.");
+    }
   } catch (err) {
-    console.error('❌ Gagal mengambil data keranjang:', err)
-    error.value = err
+    console.error('❌ Gagal mengambil data keranjang dari Firebase:', err);
+    error.value = err;
+    alert(`Gagal mengambil data keranjang: ${err.message}`); // Tampilkan alert
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 
-const updateQuantity = async (id, newQuantity) => {
-  if (newQuantity < 1) return
+const updateQuantity = async (productId, newQuantity) => {
+  if (newQuantity < 1) return; // Tidak boleh kurang dari 1
 
+  const itemIndex = cartItems.value.findIndex(item => item.productId === productId);
+  if (itemIndex === -1) return; // Item tidak ditemukan di keranjang lokal
 
-
-  const itemIndex = cartItems.value.findIndex(item => item.id === id)
-  if (itemIndex === -1) return
-
-  const updatedItem = { ...cartItems.value[itemIndex], quantity: newQuantity }
+  // Buat salinan array items yang akan dimodifikasi
+  const updatedItems = [...cartItems.value];
+  updatedItems[itemIndex].qty = newQuantity; // Perbarui kuantitas di salinan (menggunakan 'qty')
 
   try {
-    await axios.put(`${API_KERANJANG_URL}/${id}`, updatedItem)
-    cartItems.value[itemIndex].quantity = newQuantity
-    console.log(`✅ Kuantitas item ${id} berhasil diupdate`)
+    const cartRef = doc(db, 'keranjang', cartDocId);
+    // Lakukan update dokumen di Firestore
+    await updateDoc(cartRef, { items: updatedItems, lastUpdated: new Date() });
+
+    // Jika update di Firestore berhasil, perbarui state lokal
+    cartItems.value[itemIndex].qty = newQuantity;
+    console.log(`✅ Kuantitas item ${productId} berhasil diupdate di Firebase.`);
   } catch (err) {
-    console.error(`❌ Gagal mengupdate item ${id}:`, err)
-    alert(`Gagal mengupdate kuantitas: ${err.message}`)
+    console.error(`❌ Gagal mengupdate kuantitas item ${productId} di Firebase:`, err);
+    alert(`Gagal mengupdate kuantitas: ${err.message}`);
   }
-}
+};
 
 
-const deleteItem = async (id) => {
+const deleteItem = async (productId) => {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?');
+  if (!confirmed) return;
 
-
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus item ini dari keranjang?')
-  if (!confirmed) return
+  // Filter item yang akan dihapus dari array lokal
+  const updatedItems = cartItems.value.filter(item => item.productId !== productId);
 
   try {
-    await axios.delete(`${API_KERANJANG_URL}/${id}`)
-    cartItems.value = cartItems.value.filter(item => item.id !== id)
-    console.log(`✅ Item ${id} berhasil dihapus`)
+    const cartRef = doc(db, 'keranjang', cartDocId);
+    // Lakukan update dokumen di Firestore dengan array yang sudah difilter
+    await updateDoc(cartRef, { items: updatedItems, lastUpdated: new Date() });
+
+    // Jika update di Firestore berhasil, perbarui state lokal
+    cartItems.value = updatedItems;
+    console.log(`✅ Item ${productId} berhasil dihapus dari Firebase.`);
   } catch (err) {
-    console.error(`❌ Gagal menghapus item ${id}:`, err)
-    alert(`Gagal menghapus item: ${err.message}`)
+    console.error(`❌ Gagal menghapus item ${productId} dari Firebase:`, err);
+    alert(`Gagal menghapus item: ${err.message}`);
   }
-}
+};
 
 
-onMounted(fetchCartItems)
+onMounted(fetchCartItems);
 </script>

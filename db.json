@@ -11,18 +11,6 @@
       "username": "admin",
       "email": "admin@gmail.com",
       "password": "admin"
-    },
-    {
-      "id": "5dcd",
-      "username": "agus",
-      "email": "agus@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": "462b",
-      "username": "jamal",
-      "email": "jamal@gmail.com",
-      "password": "123"
     }
   ],
   "barang": [
@@ -72,7 +60,7 @@
       "kategori": "Pancing"
     },
     {
-      "id": "9",
+      "id": "6",
       "nama": "PELAMPUNG UMPAN PANCING FISHING BOBBER 10 PCS - P016",
       "deskripsi": "Kumbul pancing atau pelampung untuk pancingan merupakan salah satu aksesori wajib yang dimiliki oleh setiap pemancing. Kumbul akan memberikan informasi saat adanya tarikan dari ikan yang menyantap umpan Anda. Terdapat 10 buah kumbul pancing pada setiap set untuk melengkapi kegiatan memancing Anda.",
       "harga": 500000,
