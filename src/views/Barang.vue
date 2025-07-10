@@ -108,18 +108,7 @@ import { collection, getDocs, doc, getDoc, setDoc, updateDoc } from 'firebase/fi
 
 
 const produkList = ref([]);
-// Tidak perlu lagi isDev dan URL Replit
-// const isDev = import.meta.env.DEV
-// const API_BARANG_URL = isDev
-//   ? 'http://localhost:3000/barang'
-//   : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/barang'
 
-// const API_KERANJANG_URL = isDev
-//   ? 'http://localhost:3000/keranjang'
-//   : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/keranjang'
-
-// ID dokumen untuk keranjang. Ini akan menjadi ID yang sama untuk semua user jika tidak ada auth.
-// Anda bisa mengubahnya menjadi ID yang lebih dinamis atau diambil dari Local Storage jika perlu
 const cartDocId = 'globalUserCart';
 
 onMounted(async () => {

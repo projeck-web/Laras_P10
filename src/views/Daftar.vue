@@ -49,11 +49,6 @@ const password = ref('');
 const confirmPassword = ref('');
 const router = useRouter();
 
-// Hapus isDev dan API_USERS_URL karena tidak lagi diperlukan
-// const isDev = import.meta.env.DEV
-// const API_USERS_URL = isDev
-//   ? 'http://localhost:3000/users'
-//   : 'https://da3b57c2-b900-41c7-b83d-7e0561d1279e-00-3aebdnsqmdyxs.pike.replit.dev/users'
 
 const handleRegister = async () => {
   if (!username.value || !email.value || !password.value || !confirmPassword.value) {

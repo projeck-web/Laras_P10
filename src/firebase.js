@@ -2,15 +2,18 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
+// *** KONFIGURASI ASLI DARI FIREBASE CONSOLE ANDA (image_4b0964.jpg) ***
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDyL... (YOUR ACTUAL API KEY HERE) ...", // Ganti dengan kunci asli Anda
+  authDomain: "toko-pancing-ku.firebaseapp.com", // Ganti dengan domain asli Anda
+  projectId: "toko-pancing-ku", // Ganti dengan ID proyek asli Anda
+  storageBucket: "toko-pancing-ku.appspot.com", // Ganti
+  messagingSenderId: "...", // Ganti
+  appId: "...", // Ganti
+  measurementId: "G-..." // Ganti
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 

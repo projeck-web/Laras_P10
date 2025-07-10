@@ -55,8 +55,6 @@
 import { ref, onMounted, computed } from 'vue';
 import '../style/Keranjang.css';
 
-// PERBAIKAN PADA BARIS INI: Menggunakan jalur relatif
-// Sebelumnya: import { db } from '@/firebase.js';
 import { db } from '../firebase.js'; //
 
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
